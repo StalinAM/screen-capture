@@ -1,21 +1,15 @@
 ---
 interface Props {
-  title: string
-  body: string
-  href: string
+  id: string
 }
 
-const { href, title, body } = Astro.props
+const { id } = Astro.props
 ---
 
-<li class='link-card'>
-  <a href={href}>
-    <h2>
-      {title}
-      <span>&rarr;</span>
-    </h2>
-    <p>
-      {body}
-    </p>
-  </a>
-</li>
+<label
+  class='relative group p-4 border-4 rounded-2xl flex flex-col justify-end size-40 cursor-pointer'
+  >w
+  <slot />
+  <input class='hidden' id={id} type='checkbox' />
+  <span class='capitalize font-medium text-xl'>{id}</span>
+</label>
