@@ -7,9 +7,9 @@ const { id } = Astro.props
 ---
 
 <label
-  class='relative group p-4 border-4 rounded-2xl flex flex-col justify-end size-40 cursor-pointer'
+  class='relative group peer p-4 border-4 rounded-2xl flex flex-col justify-end size-40 cursor-pointer has-[:checked]:border-green-400'
 >
+  <input class='absolute peer' id={id} type='checkbox' />
   <slot />
-  <input class='hidden' id={id} type='checkbox' />
   <span class='capitalize font-medium text-xl'>{id}</span>
 </label>

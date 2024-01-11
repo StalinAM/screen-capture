@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import Input from '../components/Input.astro'
 import Microphone from '../components/icons/Microphone.astro'
 import Sound from '../components/icons/Sound.astro'
+import Cam from '../components/icons/Cam.astro'
 ---
 
 <Layout title='Welcome to Astro.'>
@@ -13,14 +14,20 @@ import Sound from '../components/icons/Sound.astro'
     <section class='flex gap-4 mt-10'>
       <Input id='microphone'>
         <Microphone
-          styleSvg='size-20 inline-block'
-          changePath='group-hover:stroke-green-300'
+          styleSvg='size-20 inline-block peer-checked:stroke-green-400 stroke-[#E5E7EB]'
+          changePath='group-hover:stroke-green-400'
         />
       </Input>
       <Input id='sound'>
         <Sound
-          styleSvg='size-20 inline-block'
-          changePath='group-hover:stroke-green-300'
+          styleSvg='size-20 inline-block peer-checked:stroke-green-400 stroke-[#E5E7EB]'
+          changePath='group-hover:stroke-green-400'
+        />
+      </Input>
+      <Input id='webcam'>
+        <Cam
+          styleSvg='size-20 inline-block peer-checked:stroke-green-400 stroke-[#E5E7EB]'
+          changePath='group-hover:stroke-green-400 '
         />
       </Input>
     </section>
