@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import Input from '../components/Input.astro'
+import Microphone from '../components/icons/Microphone.astro'
+import Sound from '../components/icons/Sound.astro'
 ---
 
 <Layout title='Welcome to Astro.'>
@@ -7,13 +10,19 @@ import Layout from '../layouts/Layout.astro'
 
   <main class='max-w-5xl m-auto'>
     <h1>Grabador de pantalla online</h1>
-    <section class='mt-10'>
-      <form action='submit'>
-        <label class='relative p-4 border rounded-2xl'>
-          <span>Microfono</span>
-          <input class='hidden' type='checkbox' />
-        </label>
-      </form>
+    <section class='flex gap-4 mt-10'>
+      <Input id='microphone'>
+        <Microphone
+          styleSvg='size-20 inline-block'
+          changePath='group-hover:stroke-green-300'
+        />
+      </Input>
+      <Input id='sound'>
+        <Sound
+          styleSvg='size-20 inline-block'
+          changePath='group-hover:stroke-green-300'
+        />
+      </Input>
     </section>
   </main>
 </Layout>
