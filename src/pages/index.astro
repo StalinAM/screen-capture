@@ -10,26 +10,60 @@ import Cam from '../components/icons/Cam.astro'
   <header></header>
 
   <main class='max-w-5xl m-auto'>
-    <h1>Grabador de pantalla online</h1>
-    <section class='flex gap-4 mt-10'>
-      <Input id='microphone'>
-        <Microphone
-          styleSvg='size-20 inline-block peer-checked:stroke-green-400 stroke-[#E5E7EB]'
-          changePath='group-hover:stroke-green-400 transition-colors ease-in-out duration-300'
-        />
-      </Input>
-      <Input id='sound'>
-        <Sound
-          styleSvg='size-20 inline-block peer-checked:stroke-green-400 stroke-[#E5E7EB]'
-          changePath='group-hover:stroke-green-400 transition-colors ease-in-out duration-300'
-        />
-      </Input>
-      <Input id='webcam'>
-        <Cam
-          styleSvg='size-20 inline-block peer-checked:stroke-green-400 stroke-[#E5E7EB]'
-          changePath='group-hover:stroke-green-400 transition-colors ease-in-out duration-300'
-        />
-      </Input>
+    <h1><strong>¡Captura y Comparte!</strong> Grabador de Pantalla Online</h1>
+    <section class='mt-10'>
+      <form class='flex gap-4' action=''>
+        <Input id='microphone'>
+          <Microphone
+            styleSvg='size-20 inline-block peer-checked:stroke-blue-400 stroke-[#E5E7EB]'
+            changePath='group-hover:stroke-blue-500 transition-colors ease-in-out duration-300'
+          />
+        </Input>
+        <Input id='sound'>
+          <Sound
+            styleSvg='size-20 inline-block peer-checked:stroke-blue-500 stroke-[#E5E7EB]'
+            changePath='group-hover:stroke-blue-500 transition-colors ease-in-out duration-300'
+          />
+        </Input>
+        <Input id='webcam'>
+          <Cam
+            styleSvg='size-20 inline-block peer-checked:stroke-blue-500 stroke-[#E5E7EB]'
+            changePath='group-hover:stroke-blue-500 transition-colors ease-in-out duration-300'
+          />
+        </Input>
+        <button type='submit'>Iniciar</button>
+        <button id='stop' type='button'>Detener</button>
+      </form>
     </section>
   </main>
 </Layout>
+<script>
+  const $form = document.querySelector('form')
+  const $stop = document.querySelector('#stop')
+
+  $form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const media = await navigator.mediaDevices.getDisplayMedia({
+      audio: true,
+      video: { frameRate: { ideal: 60 } }
+    })
+    const mediarecorder = new MediaRecorder(media, {
+      mimeType: 'video/webm;codecs=vp8,opus'
+    })
+    mediarecorder.start()
+
+    const [video] = media.getVideoTracks()
+    video.addEventListener('ended', () => {
+      mediarecorder.stop()
+    })
+    $stop.addEventListener('click', () => {
+      mediarecorder.stop()
+    })
+    mediarecorder.addEventListener('dataavailable', (e) => {
+      const link = document.createElement('a')
+      link.href = URL.createObjectURL(e.data)
+      link.download = 'captura.webm'
+      link.click()
+    })
+  })
+</script>
