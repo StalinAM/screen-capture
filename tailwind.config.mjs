@@ -21,11 +21,11 @@ export default {
           height: '20rem',
           left: '-5rem',
           textAlign: 'center',
-          transition: 'box-shadow 0.5s ease-out',
+          transition: 'box-shadow 0.3s ease-out',
           zIndex: '-1'
         },
         '.check': {
-          boxShadow: 'inset 0 0 0 10em #e7ecee'
+          boxShadow: 'inset 0 0 0 10em #e0f2fe'
         }
       })
     })
