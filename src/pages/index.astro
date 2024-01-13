@@ -12,27 +12,64 @@ import Cam from '../components/icons/Cam.astro'
   <main class='max-w-5xl m-auto'>
     <h1><strong>¡Captura y Comparte!</strong> Grabador de Pantalla Online</h1>
     <section class='mt-10'>
-      <form class='flex gap-4' action=''>
-        <Input id='microphone'>
-          <Microphone
-            styleSvg='size-20 inline-block peer-checked:stroke-blue-400 stroke-[#E5E7EB]'
-            changePath='group-hover:stroke-blue-500 transition-colors ease-in-out duration-300'
-          />
-        </Input>
-        <Input id='sound'>
-          <Sound
-            styleSvg='size-20 inline-block peer-checked:stroke-blue-500 stroke-[#E5E7EB]'
-            changePath='group-hover:stroke-blue-500 transition-colors ease-in-out duration-300'
-          />
-        </Input>
-        <Input id='webcam'>
-          <Cam
-            styleSvg='size-20 inline-block peer-checked:stroke-blue-500 stroke-[#E5E7EB]'
-            changePath='group-hover:stroke-blue-500 transition-colors ease-in-out duration-300'
-          />
-        </Input>
-        <button type='submit'>Iniciar</button>
-        <button id='stop' type='button'>Detener</button>
+      <form class='flex flex-col gap-4 items-start' action=''>
+        <fieldset class='flex gap-4'>
+          <legend class='text-sm text-gray-400 mb-4'>Dispositivos</legend>
+          <Input id='microphone'>
+            <Microphone
+              styleSvg='size-20 inline-block peer-checked:stroke-orange-600 stroke-[#677280]'
+              changePath='group-hover:stroke-orange-600 transition-colors ease-in-out duration-300'
+            />
+          </Input>
+          <Input id='sound'>
+            <Sound
+              styleSvg='size-20 inline-block peer-checked:stroke-orange-600 stroke-[#677280]'
+              changePath='group-hover:stroke-orange-600 transition-colors ease-in-out duration-300'
+            />
+          </Input>
+          <Input id='webcam'>
+            <Cam
+              styleSvg='size-20 inline-block peer-checked:stroke-orange-600 stroke-[#677280]'
+              changePath='group-hover:stroke-orange-600 transition-colors ease-in-out duration-300'
+            />
+          </Input>
+        </fieldset>
+        <fieldset class='flex gap-4'>
+          <legend class='text-sm text-gray-400 mb-4'>Formate de descarga</legend
+          >
+          <label
+            class='has-[:checked]:border-orange-600 cursor-pointer uppercase py-1 px-4 border-2 rounded-xl border-gray-600'
+            for='mp4'
+          >
+            <span>mp4</span>
+            <input
+              class='peer'
+              id='mp4'
+              hidden
+              name='format'
+              type='radio'
+              value='mp4'
+            />
+          </label>
+          <label
+            class='has-[:checked]:border-orange-600 cursor-pointer uppercase py-1 px-4 border-2 rounded-xl border-gray-600'
+            for='webm'
+          >
+            <span>webm</span>
+            <input id='webm' hidden name='format' type='radio' value='webm' />
+          </label>
+        </fieldset>
+        <div class='flex gap-4'>
+          <button
+            class='px-5 py-1 bg-orange-600 hover:text-slate-100 rounded-xl text-slate-900 text-lg font-medium'
+            type='submit'>Iniciar</button
+          >
+          <button
+            class='px-5 py-1 bg-orange-600 hover:text-slate-100 rounded-xl text-slate-900 text-lg font-medium'
+            id='stop'
+            type='button'>Detener</button
+          >
+        </div>
       </form>
     </section>
   </main>
@@ -43,8 +80,12 @@ import Cam from '../components/icons/Cam.astro'
 
   $form.addEventListener('submit', async (e) => {
     e.preventDefault()
+    const valuesInput = Object.fromEntries(
+      new window.FormData(e.target as HTMLFormElement)
+    )
+    console.log(valuesInput)
     const media = await navigator.mediaDevices.getDisplayMedia({
-      audio: true,
+      audio: valuesInput.sound === 'on',
       video: { frameRate: { ideal: 60 } }
     })
     const mediarecorder = new MediaRecorder(media, {
@@ -53,16 +94,13 @@ import Cam from '../components/icons/Cam.astro'
     mediarecorder.start()
 
     const [video] = media.getVideoTracks()
-    video.addEventListener('ended', () => {
-      mediarecorder.stop()
-    })
     $stop.addEventListener('click', () => {
       mediarecorder.stop()
     })
     mediarecorder.addEventListener('dataavailable', (e) => {
       const link = document.createElement('a')
       link.href = URL.createObjectURL(e.data)
-      link.download = 'captura.webm'
+      link.download = `captura.${valuesInput.format}`
       link.click()
     })
   })
