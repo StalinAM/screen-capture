@@ -14,7 +14,7 @@ import Button from '../components/Button.astro'
 
   <main class='max-w-5xl m-auto'>
     <h1><strong>¡Captura y Comparte!</strong> Grabador de Pantalla Online</h1>
-    <section class='mt-10'>
+    <section class='mt-10 flex flex-col gap-4 items-start'>
       <form class='flex flex-col gap-4 items-start' action=''>
         <fieldset
           class='flex gap-4 border-[1px] border-slate-200/20 p-4 rounded-lg'
@@ -39,9 +39,10 @@ import Button from '../components/Button.astro'
             />
           </Input>
         </fieldset>
-        <fieldset class='flex gap-4'>
-          <legend class='text-sm text-gray-400 mb-4'>Formate de descarga</legend
-          >
+        <fieldset
+          class='flex gap-4 border-[1px] border-slate-200/20 p-4 rounded-lg'
+        >
+          <legend class='text-sm text-gray-400'>Formate de descarga</legend>
           <label
             class='has-[:checked]:border-orange-600 cursor-pointer uppercase py-1 px-4 border-2 rounded-xl border-gray-600'
             for='mp4'
@@ -94,7 +95,7 @@ import Button from '../components/Button.astro'
       video: { frameRate: { ideal: 60 } }
     })
     const mediarecorder = new MediaRecorder(media, {
-      mimeType: 'video/webm;codecs=vp8,opus'
+      mimeType: 'video/webm;codecs=vp9'
     })
     mediarecorder.start()
 
