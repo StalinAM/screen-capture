@@ -4,6 +4,9 @@ import Input from '../components/Input.astro'
 import Microphone from '../components/icons/Microphone.astro'
 import Sound from '../components/icons/Sound.astro'
 import Cam from '../components/icons/Cam.astro'
+import Play from '../components/icons/Play.astro'
+import Stop from '../components/icons/Stop.astro'
+import Button from '../components/Button.astro'
 ---
 
 <Layout title='Welcome to Astro.'>
@@ -13,8 +16,10 @@ import Cam from '../components/icons/Cam.astro'
     <h1><strong>¡Captura y Comparte!</strong> Grabador de Pantalla Online</h1>
     <section class='mt-10'>
       <form class='flex flex-col gap-4 items-start' action=''>
-        <fieldset class='flex gap-4'>
-          <legend class='text-sm text-gray-400 mb-4'>Dispositivos</legend>
+        <fieldset
+          class='flex gap-4 border-[1px] border-slate-200/20 p-4 rounded-lg'
+        >
+          <legend class='text-sm text-gray-400'>Dispositivos</legend>
           <Input id='microphone'>
             <Microphone
               styleSvg='size-20 inline-block peer-checked:stroke-orange-600 stroke-[#677280]'
@@ -59,31 +64,31 @@ import Cam from '../components/icons/Cam.astro'
             <input id='webm' hidden name='format' type='radio' value='webm' />
           </label>
         </fieldset>
-        <div class='flex gap-4'>
-          <button
-            class='px-5 py-1 bg-orange-600 hover:text-slate-100 rounded-xl text-slate-900 text-lg font-medium'
-            type='submit'>Iniciar</button
-          >
-          <button
-            class='px-5 py-1 bg-orange-600 hover:text-slate-100 rounded-xl text-slate-900 text-lg font-medium'
-            id='stop'
-            type='button'>Detener</button
-          >
+        <div class='flex gap-4 mt-6'>
+          <Button type='submit' text='Iniciar'>
+            <Play
+              class='text-orange-600 size-6 has-[:enabled]:text-slate-600'
+            />
+          </Button>
         </div>
       </form>
+      <Button id='stop' type='button' text='Detener'>
+        <Stop class='size-5 enabled:text-orange-600' />
+      </Button>
     </section>
   </main>
 </Layout>
 <script>
   const $form = document.querySelector('form')
   const $stop = document.querySelector('#stop')
+  $stop.disabled = true
 
   $form.addEventListener('submit', async (e) => {
     e.preventDefault()
+    $stop.disabled = false
     const valuesInput = Object.fromEntries(
       new window.FormData(e.target as HTMLFormElement)
     )
-    console.log(valuesInput)
     const media = await navigator.mediaDevices.getDisplayMedia({
       audio: valuesInput.sound === 'on',
       video: { frameRate: { ideal: 60 } }
