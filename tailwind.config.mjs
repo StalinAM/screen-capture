@@ -25,7 +25,7 @@ export default {
           zIndex: '-1'
         },
         '.check': {
-          boxShadow: 'inset 0 0 0 10em #e0f2fe'
+          boxShadow: 'inset 0 0 0 10em rgba(255, 255, 255,.05)'
         }
       })
     })
