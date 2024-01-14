@@ -26,7 +26,7 @@ import Button from '../components/Button.astro'
               changePath='group-hover:stroke-orange-600 transition-colors ease-in-out duration-300'
             />
           </Input>
-          <Input id='sound'>
+          <Input checked='true' id='sound'>
             <Sound
               styleSvg='size-20 inline-block peer-checked:stroke-orange-600 stroke-[#677280]'
               changePath='group-hover:stroke-orange-600 transition-colors ease-in-out duration-300'
@@ -45,6 +45,20 @@ import Button from '../components/Button.astro'
           <legend class='text-sm text-gray-400'>Formate de descarga</legend>
           <label
             class='has-[:checked]:border-orange-600 cursor-pointer uppercase py-1 px-4 border-2 rounded-xl border-gray-600'
+            for='webm'
+          >
+            <span>webm</span>
+            <input
+              id='webm'
+              hidden
+              name='format'
+              type='radio'
+              value='webm'
+              checked
+            />
+          </label>
+          <label
+            class='has-[:checked]:border-orange-600 cursor-pointer uppercase py-1 px-4 border-2 rounded-xl border-gray-600'
             for='mp4'
           >
             <span>mp4</span>
@@ -57,13 +71,6 @@ import Button from '../components/Button.astro'
               value='mp4'
             />
           </label>
-          <label
-            class='has-[:checked]:border-orange-600 cursor-pointer uppercase py-1 px-4 border-2 rounded-xl border-gray-600'
-            for='webm'
-          >
-            <span>webm</span>
-            <input id='webm' hidden name='format' type='radio' value='webm' />
-          </label>
         </fieldset>
 
         <Button type='submit' text='Iniciar'>
@@ -71,21 +78,27 @@ import Button from '../components/Button.astro'
         </Button>
       </form>
     </section>
-    <section class='flex flex-col gap-4'>
-      <video src='' controls></video>
+    <section class='mt-10 flex flex-col gap-4 items-start'>
       <Button id='stop' type='button' text='Detener' active='hidden'>
         <Stop class='size-5 text-orange-600' />
       </Button>
+      <video
+        id='video'
+        class='rounded-lg border border-orange-600 hidden'
+        width='400'
+        src=''
+        controls></video>
     </section>
   </main>
 </Layout>
 <script>
   const $form = document.querySelector('form')
   const $stop = document.querySelector('#stop')
-  const $videoContainer = document.querySelector('#video-container')
+  const $video = document.querySelector('#video')
   $form.addEventListener('submit', async (e) => {
     e.preventDefault()
     $stop.classList.remove('hidden')
+
     const valuesInput = Object.fromEntries(
       new window.FormData(e.target as HTMLFormElement)
     )
@@ -98,7 +111,6 @@ import Button from '../components/Button.astro'
     })
     mediarecorder.start()
 
-    const [video] = media.getVideoTracks()
     const recordedChunks = []
 
     mediarecorder.addEventListener('dataavailable', (e) => {
@@ -108,16 +120,13 @@ import Button from '../components/Button.astro'
     })
     $stop.addEventListener('click', () => {
       mediarecorder.stop()
+      media.getTracks().forEach((track) => track.stop())
     })
     mediarecorder.addEventListener('dataavailable', (e) => {
-      const videoElement = document.createElement('video')
-      videoElement.controls = true
-      videoElement.width = 400
-      $videoContainer.innerHTML = '' // Clear any previous content
-      $videoContainer.appendChild(videoElement)
       // const link = document.createElement('a')
       // link.href = URL.createObjectURL(e.data)
-      videoElement.src = URL.createObjectURL(e.data)
+      $video.classList.remove('hidden')
+      $video.src = URL.createObjectURL(e.data)
       // link.download = `captura.${valuesInput.format}`
       // link.click()
     })

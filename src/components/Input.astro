@@ -1,16 +1,24 @@
 ---
 interface Props {
   id: string
+  checked?: string
 }
 
-const { id } = Astro.props
+const { id, checked } = Astro.props
 ---
 
 <label
   class='group after:label has-[:checked]:after:check has-[:checked]:border-orange-600 overflow-hidden flex flex-col gap-y-2 justify-center items-center size-40 cursor-pointer relative p-4 border-2 border-gray-600 rounded-xl'
   for={id}
 >
-  <input class='absolute peer' hidden id={id} name={id} type='checkbox' />
+  <input
+    class='absolute peer'
+    hidden
+    id={id}
+    name={id}
+    checked={checked}
+    type='checkbox'
+  />
   <slot />
   <span class='capitalize font-medium'>{id}</span>
 </label>
