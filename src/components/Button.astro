@@ -3,14 +3,15 @@ interface Props {
   type: 'submit' | 'reset' | 'button'
   id?: string
   text: string
+  active?: string
 }
-const { type, id, text } = Astro.props
+const { type, id, text, active } = Astro.props
 ---
 
 <button
-  class='flex peer transition disabled:text-slate-600 enabled:hover:border-orange-600 items-center group gap-x-2 justify-center px-5 py-1 bg-transparent enabled:hover:bg-orange-600/20 border-2 rounded-xl border-gray-600 text-lg font-medium'
-  type={type}
+  class=`${active} flex peer transition items-center group gap-x-2 justify-center px-5 py-1 bg-transparent hover:bg-orange-600/20 hover:border-orange-600 border-2 rounded-xl border-gray-600 text-lg font-medium`
   id={id}
+  type={type}
 >
   <slot />
   <span>{text}</span>
