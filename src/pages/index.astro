@@ -65,16 +65,16 @@ import Button from '../components/Button.astro'
             <input id='webm' hidden name='format' type='radio' value='webm' />
           </label>
         </fieldset>
-        <div class='flex gap-4 mt-6'>
-          <Button type='submit' text='Iniciar'>
-            <Play
-              class='text-orange-600 size-6 has-[:enabled]:text-slate-600'
-            />
-          </Button>
-        </div>
+
+        <Button type='submit' text='Iniciar'>
+          <Play class='text-orange-600 size-6' />
+        </Button>
       </form>
-      <Button id='stop' type='button' text='Detener'>
-        <Stop class='size-5 enabled:text-orange-600' />
+    </section>
+    <section class='flex flex-col gap-4'>
+      <video src='' controls></video>
+      <Button id='stop' type='button' text='Detener' active='hidden'>
+        <Stop class='size-5 text-orange-600' />
       </Button>
     </section>
   </main>
@@ -82,11 +82,10 @@ import Button from '../components/Button.astro'
 <script>
   const $form = document.querySelector('form')
   const $stop = document.querySelector('#stop')
-  $stop.disabled = true
-
+  const $videoContainer = document.querySelector('#video-container')
   $form.addEventListener('submit', async (e) => {
     e.preventDefault()
-    $stop.disabled = false
+    $stop.classList.remove('hidden')
     const valuesInput = Object.fromEntries(
       new window.FormData(e.target as HTMLFormElement)
     )
@@ -100,14 +99,27 @@ import Button from '../components/Button.astro'
     mediarecorder.start()
 
     const [video] = media.getVideoTracks()
+    const recordedChunks = []
+
+    mediarecorder.addEventListener('dataavailable', (e) => {
+      if (e.data.size > 0) {
+        recordedChunks.push(e.data)
+      }
+    })
     $stop.addEventListener('click', () => {
       mediarecorder.stop()
     })
     mediarecorder.addEventListener('dataavailable', (e) => {
-      const link = document.createElement('a')
-      link.href = URL.createObjectURL(e.data)
-      link.download = `captura.${valuesInput.format}`
-      link.click()
+      const videoElement = document.createElement('video')
+      videoElement.controls = true
+      videoElement.width = 400
+      $videoContainer.innerHTML = '' // Clear any previous content
+      $videoContainer.appendChild(videoElement)
+      // const link = document.createElement('a')
+      // link.href = URL.createObjectURL(e.data)
+      videoElement.src = URL.createObjectURL(e.data)
+      // link.download = `captura.${valuesInput.format}`
+      // link.click()
     })
   })
 </script>
