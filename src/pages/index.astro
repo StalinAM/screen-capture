@@ -7,6 +7,7 @@ import Cam from '../components/icons/Cam.astro'
 import Play from '../components/icons/Play.astro'
 import Stop from '../components/icons/Stop.astro'
 import Button from '../components/Button.astro'
+import Download from '../components/icons/Download.astro'
 ---
 
 <Layout title='Welcome to Astro.'>
@@ -88,6 +89,9 @@ import Button from '../components/Button.astro'
         width='400'
         src=''
         controls></video>
+      <Button id='download' type='button' text='Descargar' active=''>
+        <Download class='size-5 text-orange-600' />
+      </Button>
     </section>
   </main>
 </Layout>
