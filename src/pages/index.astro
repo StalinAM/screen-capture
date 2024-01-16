@@ -89,17 +89,24 @@ import Download from '../components/icons/Download.astro'
         width='400'
         src=''
         controls></video>
-      <Button id='download' type='button' text='Descargar' active=''>
+      <a
+        class='hidden cursor-pointer flex peer transition items-center group gap-x-2 justify-center px-5 py-1 bg-transparent hover:bg-orange-600/20 hover:border-orange-600 border-2 rounded-xl border-gray-600 text-lg font-medium'
+        id='download'
+      >
         <Download class='size-5 text-orange-600' />
-      </Button>
+        <span>Descargar</span>
+      </a>
     </section>
   </main>
 </Layout>
 <script>
   const $form = document.querySelector('form')
   const $stop = document.querySelector('#stop')
-  const $video = document.querySelector('#video')
+  const $video = document.querySelector('#video') as HTMLVideoElement
+  const $download = document.querySelector('#download') as HTMLAnchorElement
   $form.addEventListener('submit', async (e) => {
+    $download.classList.add('hidden')
+    $video.classList.add('hidden')
     e.preventDefault()
     $stop.classList.remove('hidden')
 
@@ -128,10 +135,12 @@ import Download from '../components/icons/Download.astro'
     })
     mediarecorder.addEventListener('dataavailable', (e) => {
       // const link = document.createElement('a')
-      // link.href = URL.createObjectURL(e.data)
+      const urlVideo = URL.createObjectURL(e.data)
+      $download.href = urlVideo
+      $download.classList.remove('hidden')
       $video.classList.remove('hidden')
-      $video.src = URL.createObjectURL(e.data)
-      // link.download = `captura.${valuesInput.format}`
+      $video.src = urlVideo
+      $download.download = `captura.${valuesInput.format}`
       // link.click()
     })
   })
