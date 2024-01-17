@@ -1,20 +1,17 @@
-# Astro Starter Kit: Basics
+# Grabador de Pantalla
 
-```sh
-npm create astro@latest -- --template basics
-```
+## Descripción
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+Bienvenido al Proyecto Grabador de Pantalla, una aplicación sencilla y liviana para grabar la pantalla en línea, construida utilizando Astro. Este proyecto permite a los usuarios capturar y compartir fácilmente sus grabaciones de pantalla.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Características
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+Selección de Dispositivos: Elige qué dispositivos grabar: micrófono, sonido y cámara web.
+Opciones de Formato: Selecciona el formato deseado para descargar tu grabación de pantalla: webm o mp4.
+Inicio y Detención de Grabación: Inicia y detén el proceso de grabación de pantalla sin esfuerzo.
+Descarga de la Grabación: Descarga tu grabación de pantalla en el formato elegido.
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Estructura del Proyecto
 
 ```text
 /
@@ -30,25 +27,23 @@ Inside of your Astro project, you'll see the following folders and files:
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+El proyecto está estructurado utilizando Astro, un moderno generador de sitios estáticos. Los componentes clave incluyen:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- Layout.astro: El diseño principal de la aplicación.
+- Input.astro: Componente de entrada personalizado para la selección de dispositivos.
+- Button.astro: Componente de botón personalizado para iniciar la grabación.
+- Varios iconos SVG para micrófono, sonido, cámara web, reproducir, detener y descargar.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Inicio Rápido
 
-## 🧞 Commands
+Clona el repositorio.
+Instala las dependencias usando tu administrador de paquetes preferido (npm install o yarn install).
+Ejecuta el proyecto localmente (npm start o yarn start).
+Abre tu navegador y accede al servidor de desarrollo local (generalmente http://localhost:3000).
 
-All commands are run from the root of the project, from a terminal:
+## Tecnologías Utilizadas
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- Astro: Un moderno generador de sitios estáticos.
+- HTML, CSS y JavaScript: Las tecnologías principales para construir la aplicación.
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+¡Siéntete libre de contribuir, compartir y utilizar este proyecto según tus necesidades!
