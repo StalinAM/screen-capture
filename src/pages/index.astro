@@ -1,24 +1,28 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Input from '../components/Input.astro'
-import Microphone from '../components/icons/Microphone.astro'
-import Sound from '../components/icons/Sound.astro'
-import Cam from '../components/icons/Cam.astro'
-import Play from '../components/icons/Play.astro'
-import Stop from '../components/icons/Stop.astro'
 import Button from '../components/Button.astro'
+import Header from '../components/Header.astro'
+import Input from '../components/Input.astro'
+import Cam from '../components/icons/Cam.astro'
 import Download from '../components/icons/Download.astro'
+import Microphone from '../components/icons/Microphone.astro'
+import Play from '../components/icons/Play.astro'
+import Sound from '../components/icons/Sound.astro'
+import Stop from '../components/icons/Stop.astro'
+import Layout from '../layouts/Layout.astro'
+import Footer from '../components/Footer.astro'
 ---
 
-<Layout title='Welcome to Astro.'>
-  <header></header>
+<Layout title='Screen Capture'>
+  <Header />
 
-  <main class='max-w-5xl m-auto'>
-    <h1><strong>¡Captura y Comparte!</strong> Grabador de Pantalla Online</h1>
+  <main class='max-w-5xl mt-10 mx-auto px-4'>
+    <h1 class='text-3xl text-balance'>
+      <strong>¡Captura y Comparte!</strong> Grabador de Pantalla Online
+    </h1>
     <section class='mt-10 flex flex-col gap-4 items-start'>
       <form class='flex flex-col gap-4 items-start' action=''>
         <fieldset
-          class='flex gap-4 border-[1px] border-slate-200/20 p-4 rounded-lg'
+          class='flex flex gap-4 border-[1px] border-slate-200/20 p-4 rounded-lg'
         >
           <legend class='text-sm text-gray-400'>Dispositivos</legend>
           <Input id='microphone'>
@@ -43,7 +47,7 @@ import Download from '../components/icons/Download.astro'
         <fieldset
           class='flex gap-4 border-[1px] border-slate-200/20 p-4 rounded-lg'
         >
-          <legend class='text-sm text-gray-400'>Formate de descarga</legend>
+          <legend class='text-sm text-gray-400'>Formato de descarga</legend>
           <label
             class='has-[:checked]:border-orange-600 cursor-pointer uppercase py-1 px-4 border-2 rounded-xl border-gray-600'
             for='webm'
@@ -98,6 +102,7 @@ import Download from '../components/icons/Download.astro'
       </a>
     </section>
   </main>
+  <Footer />
 </Layout>
 <script>
   const $form = document.querySelector('form')
