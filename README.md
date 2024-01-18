@@ -6,10 +6,10 @@ Bienvenido al Proyecto Grabador de Pantalla, una aplicación sencilla y liviana 
 
 ## Características
 
-Selección de Dispositivos: Elige qué dispositivos grabar: micrófono, sonido y cámara web.
-Opciones de Formato: Selecciona el formato deseado para descargar tu grabación de pantalla: webm o mp4.
-Inicio y Detención de Grabación: Inicia y detén el proceso de grabación de pantalla sin esfuerzo.
-Descarga de la Grabación: Descarga tu grabación de pantalla en el formato elegido.
+- Selección de Dispositivos: Elige qué dispositivos grabar: micrófono, sonido y cámara web.
+- Opciones de Formato: Selecciona el formato deseado para descargar tu grabación de pantalla: webm o mp4.
+- Inicio y Detención de Grabación: Inicia y detén el proceso de grabación de pantalla sin esfuerzo.
+- Descarga de la Grabación: Descarga tu grabación de pantalla en el formato elegido.
 
 ## Estructura del Proyecto
 
