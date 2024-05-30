@@ -143,14 +143,12 @@ import Footer from '../components/Footer.astro'
       media.getTracks().forEach((track) => track.stop())
     })
     mediarecorder.addEventListener('dataavailable', (e) => {
-      // const link = document.createElement('a')
       const urlVideo = URL.createObjectURL(e.data)
       $download.href = urlVideo
       $download.classList.remove('hidden')
       $video.classList.remove('hidden')
       $video.src = urlVideo
       $download.download = `captura.${valuesInput.format}`
-      // link.click()
     })
   })
 </script>
